@@ -248,8 +248,8 @@ const Programs = () => {
         }
       );
   
-      // Pin the current card
-      if (index < cards.length - 1) {
+      // Pin the current card only on desktop
+      if (index < cards.length - 1 && window.innerWidth >= 1024) {
         ScrollTrigger.create({
           trigger: card,
           start: "top top+=250",
@@ -268,21 +268,21 @@ const Programs = () => {
   return (
     <section
       ref={sectionRef}
-      className="py-16 lg:py-24 bg-gradient-to-br from-gray-50 to-blue-50/20"
+      className="py-8 lg:py-16 bg-gradient-to-br from-gray-50 to-blue-50/20"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
-        <div className="text-center mb-16 lg:mb-20">
-          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-3 rounded-full text-sm font-semibold mb-6">
+        <div className="text-center mb-8 lg:mb-16">
+          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white px-4 py-2 lg:px-6 lg:py-3 rounded-full text-sm font-semibold mb-4 lg:mb-6">
             <div className="w-2 h-2 bg-white/80 rounded-full animate-pulse"></div>
             Our Impact Programs
           </div>
 
-          <h1 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-gray-900 bg-clip-text text-transparent mb-6">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-gray-900 bg-clip-text text-transparent mb-4 lg:mb-6">
             Transforming Communities
           </h1>
 
-          <p className="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed px-4">
             Discover our comprehensive programs designed to create lasting impact and sustainable change.
           </p>
         </div>
@@ -295,98 +295,98 @@ const Programs = () => {
               <div
                 key={program.id}
                 ref={(el) => (cardsRef.current[index] = el)}
-                className="bg-white rounded-2xl border border-gray-200 mb-8 last:mb-0"
+                className="bg-white rounded-xl lg:rounded-2xl border border-gray-200 mb-6 lg:mb-8 last:mb-0 mx-2 sm:mx-0"
               >
                 {/* Color Accent Bar */}
                 <div
-                  className="w-full h-2 rounded-t-2xl"
+                  className="w-full h-2 rounded-t-xl lg:rounded-t-2xl"
                   style={{ backgroundColor: program.color }}
                 ></div>
 
-                <div className="p-8">
+                <div className="p-4 sm:p-6 lg:p-8">
                   {/* Header Section */}
-                  <div className="flex items-start justify-between mb-6">
-                    <div className="flex items-center gap-4">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-4 lg:mb-6 gap-4">
+                    <div className="flex items-center gap-3 sm:gap-4">
                       <div 
-                        className="w-16 h-16 rounded-2xl flex items-center justify-center text-white"
+                        className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-xl lg:rounded-2xl flex items-center justify-center text-white flex-shrink-0"
                         style={{ backgroundColor: program.color }}
                       >
-                        <IconComponent size={28} />
+                        <IconComponent size={20} className="sm:w-6 sm:h-6 lg:w-7 lg:h-7" />
                       </div>
-                      <div>
-                        <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-2">
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-1 lg:mb-2 line-clamp-2">
                           {program.title}
                         </h3>
                         <div 
-                          className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold text-white"
+                          className="inline-flex items-center gap-2 px-3 py-1 lg:px-4 lg:py-2 rounded-full text-xs lg:text-sm font-semibold text-white w-fit"
                           style={{ backgroundColor: program.color }}
                         >
-                          <div className="w-2 h-2 bg-white/30 rounded-full animate-pulse"></div>
-                          {program.stats}
+                          <div className="w-1.5 h-1.5 lg:w-2 lg:h-2 bg-white/30 rounded-full animate-pulse flex-shrink-0"></div>
+                          <span className="truncate">{program.stats}</span>
                         </div>
                       </div>
                     </div>
                     
-                    {/* Program Number */}
-                    <div className="text-right">
-                      <div className="text-4xl font-bold text-gray-300">
+                    {/* Program Number - Hidden on mobile */}
+                    <div className="hidden sm:block text-right flex-shrink-0">
+                      <div className="text-2xl lg:text-4xl font-bold text-gray-300">
                         {String(index + 1).padStart(2, '0')}
                       </div>
-                      <div className="text-sm text-gray-500 mt-1">
+                      <div className="text-xs lg:text-sm text-gray-500 mt-1">
                         of {programs.length}
                       </div>
                     </div>
                   </div>
 
                   {/* Description */}
-                  <div className="mb-8">
-                    <p className="text-gray-700 leading-relaxed text-lg bg-gray-50 p-6 rounded-xl border border-gray-200">
+                  <div className="mb-4 lg:mb-8">
+                    <p className="text-gray-700 leading-relaxed text-sm sm:text-base lg:text-lg bg-gray-50 p-4 lg:p-6 rounded-lg lg:rounded-xl border border-gray-200">
                       {program.description}
                     </p>
                   </div>
 
                   {/* Stats Grid */}
-                  <div className="grid grid-cols-3 gap-4 mb-8">
-                    <div className="text-center p-4 rounded-xl bg-gray-50 border border-gray-200">
-                      <Users className="w-6 h-6 mx-auto mb-2" style={{ color: program.color }} />
-                      <div className="text-lg font-bold text-gray-900">{program.details.beneficiaries}</div>
-                      <div className="text-sm text-gray-600">Beneficiaries</div>
+                  <div className="grid grid-cols-3 gap-2 sm:gap-3 lg:gap-4 mb-4 lg:mb-8">
+                    <div className="text-center p-2 sm:p-3 lg:p-4 rounded-lg lg:rounded-xl bg-gray-50 border border-gray-200">
+                      <Users className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 mx-auto mb-1 lg:mb-2" style={{ color: program.color }} />
+                      <div className="text-sm sm:text-base lg:text-lg font-bold text-gray-900 truncate">{program.details.beneficiaries}</div>
+                      <div className="text-xs sm:text-sm text-gray-600 truncate">Beneficiaries</div>
                     </div>
-                    <div className="text-center p-4 rounded-xl bg-gray-50 border border-gray-200">
-                      <Target className="w-6 h-6 mx-auto mb-2" style={{ color: program.color }} />
-                      <div className="text-lg font-bold text-gray-900">{program.impact}</div>
-                      <div className="text-sm text-gray-600">Success Rate</div>
+                    <div className="text-center p-2 sm:p-3 lg:p-4 rounded-lg lg:rounded-xl bg-gray-50 border border-gray-200">
+                      <Target className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 mx-auto mb-1 lg:mb-2" style={{ color: program.color }} />
+                      <div className="text-sm sm:text-base lg:text-lg font-bold text-gray-900 truncate">{program.impact}</div>
+                      <div className="text-xs sm:text-sm text-gray-600 truncate">Success Rate</div>
                     </div>
-                    <div className="text-center p-4 rounded-xl bg-gray-50 border border-gray-200">
-                      <Award className="w-6 h-6 mx-auto mb-2" style={{ color: program.color }} />
-                      <div className="text-lg font-bold text-gray-900">{program.details.duration}</div>
-                      <div className="text-sm text-gray-600">Duration</div>
+                    <div className="text-center p-2 sm:p-3 lg:p-4 rounded-lg lg:rounded-xl bg-gray-50 border border-gray-200">
+                      <Award className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 mx-auto mb-1 lg:mb-2" style={{ color: program.color }} />
+                      <div className="text-sm sm:text-base lg:text-lg font-bold text-gray-900 truncate">{program.details.duration}</div>
+                      <div className="text-xs sm:text-sm text-gray-600 truncate">Duration</div>
                     </div>
                   </div>
 
                   {/* Key Achievements */}
-                  <div className="space-y-4">
-                    <h4 className="font-semibold text-gray-900 text-lg flex items-center gap-3 mb-4">
+                  <div className="space-y-3 lg:space-y-4">
+                    <h4 className="font-semibold text-gray-900 text-base lg:text-lg flex items-center gap-2 lg:gap-3 mb-3 lg:mb-4">
                       <div
-                        className="w-2 h-2 rounded-full animate-pulse"
+                        className="w-2 h-2 rounded-full animate-pulse flex-shrink-0"
                         style={{ backgroundColor: program.color }}
                       ></div>
                       Program Highlights
                     </h4>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 lg:gap-3">
                       {program.achievements.map((achievement, i) => (
                         <div
                           key={i}
-                          className="flex items-center gap-3 p-4 bg-white rounded-xl border border-gray-200"
+                          className="flex items-center gap-2 lg:gap-3 p-2 lg:p-4 bg-white rounded-lg lg:rounded-xl border border-gray-200"
                         >
                           <div
-                            className="w-8 h-8 rounded-full flex items-center justify-center text-white flex-shrink-0"
+                            className="w-6 h-6 lg:w-8 lg:h-8 rounded-full flex items-center justify-center text-white flex-shrink-0"
                             style={{ backgroundColor: program.color }}
                           >
-                            <Check size={16} />
+                            <Check size={12} className="lg:w-4 lg:h-4" />
                           </div>
-                          <span className="text-gray-700 font-medium text-sm leading-tight">
+                          <span className="text-gray-700 font-medium text-xs lg:text-sm leading-tight flex-1">
                             {achievement}
                           </span>
                         </div>
@@ -398,9 +398,6 @@ const Programs = () => {
             );
           })}
         </div>
-
-        {/* Final CTA */}
-        
       </div>
     </section>
   );
