@@ -5,6 +5,8 @@ import ProgramsSection from '../components/ProgramsSection';
 import NGODashboard from '../components/NGODashboard';
 import Faqs from '../components/Faqs';
 import About from '../components/About';
+import Events from '../components/Events';
+import Gallery from '../components/Gallery';
 
 const Home = () => {
   return (
@@ -13,7 +15,8 @@ const Home = () => {
       <Impactful/>
       <About/>
       <ProgramsSection/>
-      <NGODashboard/>
+      <Events/>
+      <Gallery/>
       <Faqs/>
     </div>
   );
