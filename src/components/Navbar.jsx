@@ -37,16 +37,7 @@ const Navbar = () => {
   // Handle PDF download
   const handlePdfDownload = () => {
     closeMenu();
-    // You can either open in new tab or trigger download
     window.open('/doc/certificate.pdf', '_blank');
-    
-    // Alternative: trigger download
-    // const link = document.createElement('a');
-    // link.href = '/docs/12A CERTIFICATE_merged.pdf';
-    // link.download = '12A-Certificate.pdf';
-    // document.body.appendChild(link);
-    // link.click();
-    // document.body.removeChild(link);
   };
 
   // Animation variants
@@ -244,12 +235,23 @@ const Navbar = () => {
 
         {/* Mobile Menu Button */}
         <div className="flex lg:hidden items-center space-x-2">
+          {/* Mobile Donate Button */}
+          {/* <motion.div whileTap={{ scale: 0.95 }}>
+            <Link
+              to="/donate"
+              className="px-4 py-2 bg-orange-500 text-white rounded-xl text-sm font-['Inter'] font-medium shadow-lg shadow-orange-200 hover:bg-orange-600 transition-colors"
+              onClick={closeMenu}
+            >
+              Donate
+            </Link>
+          </motion.div> */}
+          
           {/* Mobile PDF Download Button */}
           <motion.button
             onClick={handlePdfDownload}
             className="p-2 text-gray-600 hover:text-orange-600 transition-colors"
             whileTap={{ scale: 0.95 }}
-            aria-label="Download 12A Certificate"
+            aria-label="Download Certificate"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -339,6 +341,20 @@ const Navbar = () => {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}
               >
+                {/* Mobile Donate Button */}
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <Link
+                    to="/donate"
+                    className="w-full py-3 px-6 text-center bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-2xl font-['Inter'] font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center"
+                    onClick={closeMenu}
+                  >
+                    Donate Now
+                  </Link>
+                </motion.div>
+
                 {/* Mobile PDF Download Button */}
                 <motion.button
                   onClick={handlePdfDownload}
@@ -349,7 +365,7 @@ const Navbar = () => {
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                   </svg>
-                  <span>Download </span>
+                  <span>Download Certificate</span>
                 </motion.button>
               </motion.div>
             </nav>
