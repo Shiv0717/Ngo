@@ -1,291 +1,229 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import React from "react";
+import { motion } from "framer-motion";
 import { 
-  Calendar, 
-  MapPin, 
+  Target, 
   Users, 
-  Clock, 
+  Shield, 
   Heart, 
-  ArrowRight, 
-  Filter, 
-  Search,
-  Star,
+  Star, 
+  Award, 
   TrendingUp,
-  Target,
-  Award,
-  ChevronLeft,
-  ChevronRight
-} from 'lucide-react';
+  Sparkles,
+  CheckCircle,
+  Globe,
+  HandHeart,
+  Ribbon
+} from "lucide-react";
 
-const Events = () => {
-  const [activeFilter, setActiveFilter] = useState('all');
-  const [selectedEvent, setSelectedEvent] = useState(null);
-
-  const filters = [
-    { id: 'all', label: 'All Events' },
-    { id: 'upcoming', label: 'Upcoming' },
-    { id: 'ongoing', label: 'Ongoing' },
-    { id: 'past', label: 'Past Events' },
-    { id: 'campaigns', label: 'Campaigns' },
-  ];
-
-  const events = [
+const WhyChooseUs = () => {
+  const features = [
     {
-      id: 1,
-      title: "Health & Hygiene Awareness Drive",
-      type: "campaign",
-      status: "ongoing",
-      date: "2024-03-15",
-      endDate: "2024-04-15",
-      time: "9:00 AM - 5:00 PM",
-      location: "Rural Communities, Maharashtra",
-      attendees: 5000,
-      description: "A month-long campaign to promote health and hygiene practices in rural areas, including medical checkups and awareness sessions.",
-      image: "https://plus.unsplash.com/premium_photo-1723673018268-3dba348f1694?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      color: "from-blue-500 to-blue-600",
-      icon: Heart,
-      volunteers: 120,
-      impact: "10,000+ people reached"
-    },
-    {
-      id: 2,
-      title: "Education for All - School Kit Distribution",
-      type: "event",
-      status: "upcoming",
-      date: "2024-04-05",
-      time: "10:00 AM - 2:00 PM",
-      location: "Government Schools, Pune",
-      attendees: 2000,
-      description: "Distribution of school kits including books, uniforms, and stationery to underprivileged children across 25 government schools.",
-      image: "https://plus.unsplash.com/premium_photo-1683135012485-412ba9531a3b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      color: "from-green-500 to-green-600",
       icon: Target,
-      volunteers: 80,
-      impact: "2,000 children supported"
+      title: "Impactful Initiatives",
+      description: "We strive to make a positive impact on society through our diverse range of humanitarian initiatives.",
+      color: "from-blue-500 to-blue-600",
+      bgColor: "bg-blue-50",
+      delay: 0.1
     },
     {
-      id: 3,
-      title: "Women Empowerment Workshop Series",
-      type: "campaign",
-      status: "ongoing",
-      date: "2024-03-01",
-      endDate: "2024-06-01",
-      time: "2:00 PM - 6:00 PM",
-      location: "Community Centers, Multiple Cities",
-      attendees: 1500,
-      description: "A 3-month workshop series focusing on skill development, financial literacy, and entrepreneurship for women from underprivileged backgrounds.",
-      image: "/events/women-empowerment.jpg",
-      color: "from-purple-500 to-purple-600",
-      icon: TrendingUp,
-      volunteers: 60,
-      impact: "1,500 women trained"
-    },
-    {
-      id: 4,
-      title: "Tree Plantation Drive 2024",
-      type: "event",
-      status: "upcoming",
-      date: "2024-06-05",
-      time: "7:00 AM - 12:00 PM",
-      location: "Green Belt Areas, Mumbai",
-      attendees: 300,
-      description: "Join us in planting 5000 saplings to combat climate change and create greener urban spaces. Perfect for corporate volunteering.",
-      image: "/events/tree-plantation.jpg",
-      color: "from-emerald-500 to-emerald-600",
-      icon: Award,
-      volunteers: 200,
-      impact: "5,000 trees to be planted"
-    },
-    {
-      id: 5,
-      title: "Digital Literacy Camp for Seniors",
-      type: "campaign",
-      status: "ongoing",
-      date: "2024-02-01",
-      endDate: "2024-05-31",
-      time: "3:00 PM - 5:00 PM",
-      location: "Senior Citizen Centers, Delhi",
-      attendees: 800,
-      description: "Teaching digital skills to senior citizens to help them stay connected with family and access online services safely.",
-      image: "/events/digital-literacy.jpg",
-      color: "from-orange-500 to-orange-600",
       icon: Users,
-      volunteers: 45,
-      impact: "800 seniors trained"
+      title: "Compassionate Team",
+      description: "Our team of dedicated individuals is driven by compassion and a genuine desire to help those in need.",
+      color: "from-green-500 to-green-600",
+      bgColor: "bg-green-50",
+      delay: 0.2
     },
     {
-      id: 6,
-      title: "Annual Fundraising Gala 2024",
-      type: "event",
-      status: "upcoming",
-      date: "2024-12-10",
-      time: "6:00 PM - 11:00 PM",
-      location: "Grand Hyatt, Mumbai",
-      attendees: 500,
-      description: "An elegant evening of dinner, entertainment, and inspiring stories to raise funds for our education and healthcare initiatives.",
-      image: "/events/fundraising-gala.jpg",
+      icon: Shield,
+      title: "Community Trust",
+      description: "We have earned the trust and respect of the local community through our consistent efforts and commitment.",
+      color: "from-purple-500 to-purple-600",
+      bgColor: "bg-purple-50",
+      delay: 0.3
+    },
+    {
+      icon: Heart,
+      title: "Resources for All",
+      description: "We offer support and resources to those in need, regardless of their background or circumstances.",
       color: "from-red-500 to-red-600",
+      bgColor: "bg-red-50",
+      delay: 0.4
+    },
+    {
       icon: Star,
-      volunteers: 30,
-      impact: "₹50L fundraising target"
+      title: "Beacon of Hope",
+      description: "Our foundation serves as a beacon of hope for the vulnerable and marginalized in our community.",
+      color: "from-orange-500 to-orange-600",
+      bgColor: "bg-orange-50",
+      delay: 0.5
+    },
+    {
+      icon: TrendingUp,
+      title: "Making a Difference",
+      description: "Join us in making a difference and creating a better future for our community.",
+      color: "from-teal-500 to-teal-600",
+      bgColor: "bg-teal-50",
+      delay: 0.6
     }
   ];
 
-  const filteredEvents = events.filter(event => {
-    if (activeFilter === 'all') return true;
-    if (activeFilter === 'upcoming') return event.status === 'upcoming';
-    if (activeFilter === 'ongoing') return event.status === 'ongoing';
-    if (activeFilter === 'past') return event.status === 'past';
-    if (activeFilter === 'campaigns') return event.type === 'campaign';
-    return true;
-  });
+  const stats = [
+    { number: "50K+", label: "Lives Impacted", icon: Users },
+    { number: "15+", label: "Years of Service", icon: Award },
+    { number: "25+", label: "Communities Served", icon: Globe },
+    { number: "95%", label: "Success Rate", icon: TrendingUp }
+  ];
 
-  const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
-    });
+  const fadeInUp = {
+    initial: { opacity: 0, y: 60 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true }
+  };
+
+  const staggerChildren = {
+    whileInView: {
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
   };
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/20 py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Header */}
+    <section className="w-full bg-gradient-to-br from-slate-50 via-blue-50/20 to-purple-50/10 relative overflow-hidden py-24 lg:py-32">
+      {/* Background Elements */}
+      <div className="absolute top-0 left-0 w-72 h-72 bg-blue-200/20 rounded-full -translate-x-1/2 -translate-y-1/2 blur-3xl"></div>
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-200/20 rounded-full translate-x-1/3 translate-y-1/3 blur-3xl"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-green-200/10 rounded-full blur-3xl"></div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Header Section */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-16 lg:mb-20"
         >
-          <div className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-full text-sm font-semibold mb-6 shadow-lg">
-            <Calendar className="w-4 h-4" />
-            Events & Campaigns
-          </div>
-          
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-            Join Our <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Mission</span>
-          </h1>
-          
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Discover upcoming events, ongoing campaigns, and opportunities to make a difference. 
-            Together, we can create lasting impact in communities.
-          </p>
+          <motion.span
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-2xl text-sm font-semibold mb-6 shadow-lg shadow-blue-500/25"
+          >
+            <Sparkles className="w-4 h-4" />
+            Our Unique Value
+            <div className="w-2 h-2 bg-white/80 rounded-full animate-pulse"></div>
+          </motion.span>
+
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            viewport={{ once: true }}
+            className="text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-6 leading-tight"
+          >
+            Why Choose
+            <span className="block bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent animate-gradient">
+              Our Foundation
+            </span>
+          </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            viewport={{ once: true }}
+            className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
+          >
+            Discover what sets us apart in our mission to create lasting change and build 
+            stronger, more resilient communities through compassionate action.
+          </motion.p>
         </motion.div>
 
-        {/* Filters and Search */}
-       
-
-        {/* Events Grid */}
+        {/* Features Grid */}
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          variants={staggerChildren}
+          initial="initial"
+          whileInView="whileInView"
           viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16 lg:mb-20"
         >
-          {filteredEvents.map((event, index) => (
+          {features.map((feature, index) => (
             <motion.div
-              key={event.id}
+              key={index}
+              variants={fadeInUp}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              transition={{ duration: 0.6, delay: feature.delay }}
               viewport={{ once: true }}
-              className="group relative bg-white rounded-2xl  transition-all duration-500 border border-gray-100 overflow-hidden cursor-pointer"
-              onClick={() => setSelectedEvent(event)}
+              className="group relative"
             >
-              {/* Status Badge */}
-              <div className="absolute top-4 left-4 z-10">
-                <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                  event.status === 'ongoing' ? 'bg-green-100 text-green-800' :
-                  event.status === 'upcoming' ? 'bg-blue-100 text-blue-800' :
-                  'bg-gray-100 text-gray-800'
-                }`}>
-                  {event.status === 'ongoing' ? 'Ongoing' : event.status === 'upcoming' ? 'Upcoming' : 'Past'}
-                </span>
-              </div>
-
-              {/* Type Badge */}
-              <div className="absolute top-4 right-4 z-10">
-                <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                  event.type === 'campaign' ? 'bg-purple-100 text-purple-800' : 'bg-orange-100 text-orange-800'
-                }`}>
-                  {event.type === 'campaign' ? 'Campaign' : 'Event'}
-                </span>
-              </div>
-
-              {/* Image */}
-              <div className="relative h-48 overflow-hidden">
-                <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
-                  <event.icon className="w-16 h-16 text-gray-400" />
+              <div className={`${feature.bgColor} rounded-3xl p-8 border border-gray-100  transition-all duration-500 group-hover:scale-105 cursor-pointer backdrop-blur-sm h-full flex flex-col`}>
+                {/* Icon */}
+                <div className={`w-16 h-16 bg-gradient-to-r ${feature.color} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                  <feature.icon className="w-8 h-8 text-white" />
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </div>
 
-              {/* Content */}
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-blue-600 transition-colors">
-                  {event.title}
+                {/* Content */}
+                <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-gray-800 transition-colors">
+                  {feature.title}
                 </h3>
-
-                {/* Date and Time */}
-                <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
-                  <div className="flex items-center gap-1">
-                    <Calendar className="w-4 h-4" />
-                    <span>{formatDate(event.date)}</span>
-                    {event.endDate && (
-                      <span> - {formatDate(event.endDate)}</span>
-                    )}
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Clock className="w-4 h-4" />
-                    <span>{event.time}</span>
-                  </div>
-                </div>
-
-                {/* Location */}
-                <div className="flex items-center gap-2 text-sm text-gray-600 mb-4">
-                  <MapPin className="w-4 h-4" />
-                  <span className="line-clamp-1">{event.location}</span>
-                </div>
-
-                {/* Description */}
-                <p className="text-gray-700 text-sm leading-relaxed mb-4 line-clamp-2">
-                  {event.description}
+                
+                <p className="text-gray-700 leading-relaxed flex-1">
+                  {feature.description}
                 </p>
 
-                {/* Stats */}
-                <div className="flex items-center justify-between text-sm text-gray-600">
-                  <div className="flex items-center gap-1">
-                    <Users className="w-4 h-4" />
-                    <span>{event.attendees.toLocaleString()}+ attendees</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Heart className="w-4 h-4 text-red-500" />
-                    <span>{event.volunteers} volunteers</span>
-                  </div>
-                </div>
-
-                {/* CTA Button */}
-                <button className="w-full mt-4 flex items-center justify-center gap-2 bg-gray-100 text-gray-700 py-2 rounded-xl font-semibold hover:bg-gray-200 transition-colors group/btn">
-                  <span>View Details</span>
-                  <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-                </button>
+                {/* Hover Effect Line */}
+                <div className={`absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r ${feature.color} group-hover:w-full transition-all duration-500 rounded-full`}></div>
               </div>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* CTA Section */}
-       
+        
+
+        {/* Trust Indicators */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          viewport={{ once: true }}
+          className="mt-16 text-center"
+        >
+          <div className="inline-flex flex-wrap items-center justify-center gap-8 bg-white/80 backdrop-blur-sm rounded-2xl px-8 py-6 shadow-lg border border-gray-100">
+            <div className="flex items-center gap-3 text-gray-700">
+              <CheckCircle className="w-5 h-5 text-green-500" />
+              <span className="font-semibold">15+ Years of Trust</span>
+            </div>
+            <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
+            <div className="flex items-center gap-3 text-gray-700">
+              <HandHeart className="w-5 h-5 text-blue-500" />
+              <span className="font-semibold">500+ Active Volunteers</span>
+            </div>
+            <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
+            <div className="flex items-center gap-3 text-gray-700">
+              <Ribbon className="w-5 h-5 text-purple-500" />
+              <span className="font-semibold">Certified Non-Profit</span>
+            </div>
+          </div>
+        </motion.div>
       </div>
 
-    
-     
+      {/* Custom CSS for animations */}
+      <style jsx>{`
+        @keyframes gradient {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        .animate-gradient {
+          background-size: 200% 200%;
+          animation: gradient 4s ease infinite;
+        }
+      `}</style>
     </section>
   );
 };
 
-export default Events;
+export default WhyChooseUs;

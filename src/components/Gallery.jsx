@@ -1,424 +1,293 @@
+import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Search, 
-  Filter, 
-  X, 
-  ZoomIn, 
-  Download, 
-  Share, 
-  Heart, 
-  Calendar,
-  MapPin,
-  Users,
-  ChevronLeft,
-  ChevronRight
-} from 'lucide-react';
+gsap.registerPlugin(ScrollTrigger);
 
-const Gallery = () => {
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [activeFilter, setActiveFilter] = useState('all');
-  const [searchQuery, setSearchQuery] = useState('');
+const CommunityImpact = () => {
+  const sectionRef = useRef(null);
+  const cardRefs = useRef([]);
+  const headerRef = useRef(null);
+  const ctaRef = useRef(null);
 
-  const categories = [
-    { id: 'all', name: 'All Photos', count: 28 },
-    { id: 'events', name: 'Events', count: 12 },
-    { id: 'community', name: 'Community', count: 8 },
-    { id: 'education', name: 'Education', count: 6 },
-    { id: 'healthcare', name: 'Healthcare', count: 4 },
-    { id: 'environment', name: 'Environment', count: 6 },
-  ];
+  const featuredId = 2; // ID of the featured item for the left 30%
 
-  const images = [
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Header animation
+      gsap.fromTo(headerRef.current,
+        { opacity: 0, y: 80, scale: 0.9 },
+        {
+          opacity: 1, y: 0, scale: 1,
+          duration: 1.2,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: headerRef.current,
+            start: "top 80%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse"
+          }
+        });
+
+      // Animate cards (skip featured one)
+      cardRefs.current.forEach((card, index) => {
+        gsap.fromTo(card,
+          { opacity: 0, y: 100, rotationY: 15, scale: 0.8 },
+          {
+            opacity: 1, y: 0, rotationY: 0, scale: 1,
+            duration: 1,
+            ease: "power3.out",
+            delay: index * 0.1,
+            scrollTrigger: {
+              trigger: card,
+              start: "top 85%",
+              end: "bottom 20%",
+              toggleActions: "play none none reverse"
+            }
+          });
+      });
+
+      // CTA animation
+      gsap.fromTo(ctaRef.current,
+        { opacity: 0, y: 60, scale: 0.8 },
+        {
+          opacity: 1, y: 0, scale: 1,
+          duration: 0.8,
+          ease: "back.out(1.7)",
+          scrollTrigger: {
+            trigger: ctaRef.current,
+            start: "top 90%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse"
+          }
+        });
+
+      // Hover animations
+      cardRefs.current.forEach((card) => {
+        card.addEventListener('mouseenter', () => {
+          gsap.to(card, {
+            y: -12,
+            rotationY: 8,
+            scale: 1.03,
+            duration: 0.5,
+            ease: "power2.out"
+          });
+
+          const image = card.querySelector('img');
+          const number = card.querySelector('.card-number');
+          const stats = card.querySelector('.impact-stats');
+
+          gsap.to(image, { scale: 1.15, duration: 0.5, ease: "power2.out" });
+          gsap.to(number, {
+            scale: 1.2,
+            backgroundColor: card.dataset.color,
+            duration: 0.4
+          });
+
+          if (stats) {
+            gsap.to(stats, { opacity: 1, y: 0, duration: 0.4, delay: 0.1 });
+          }
+        });
+
+        card.addEventListener('mouseleave', () => {
+          gsap.to(card, {
+            y: 0,
+            rotationY: 0,
+            scale: 1,
+            duration: 0.5,
+            ease: "power2.out"
+          });
+
+          const image = card.querySelector('img');
+          const number = card.querySelector('.card-number');
+          const stats = card.querySelector('.impact-stats');
+
+          gsap.to(image, { scale: 1, duration: 0.5 });
+          gsap.to(number, { scale: 1, duration: 0.4 });
+
+          if (stats) {
+            gsap.to(stats, { opacity: 0, y: 20, duration: 0.3 });
+          }
+        });
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  const impactAreas = [
     {
       id: 1,
-      url: "https://images.unsplash.com/photo-1541336032412-2048a678540d?w=500&h=400&fit=crop",
-      category: "events",
-      title: "Health Camp in Rural Village",
-      description: "Free medical checkup camp organized for 500+ villagers",
-      date: "2024-03-15",
-      location: "Rural Maharashtra",
-      likes: 45,
-      downloads: 23
+      title: "Education for All",
+      image: "https://shrishankaracharya.org/wp-content/uploads/2024/05/kanha-kids-a-play-school-and-day-care-kolar-road-bhopal-schools-0dggajqcgh-2.jpg",
+      color: "#3B82F6",
+      description: "Providing quality education to underprivileged children.",
+      duration: "Since 2009"
     },
     {
       id: 2,
-      url: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=500&h=400&fit=crop",
-      category: "education",
-      title: "Digital Learning Initiative",
-      description: "Children learning through digital tablets in remote schools",
-      date: "2024-02-28",
-      location: "Government School, Pune",
-      likes: 67,
-      downloads: 34
+      title: "Women Empowerment",
+      image: "https://shrishankaracharya.org/wp-content/uploads/2024/05/Women-Empowerment.jpeg",
+      color: "#8B5CF6",
+      description: "Skill development programs for independent women leaders.",
+      duration: "5 Years"
     },
     {
       id: 3,
-      url: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=500&h=400&fit=crop",
-      category: "community",
-      title: "Women Empowerment Workshop",
-      description: "Skill development training for women entrepreneurs",
-      date: "2024-03-10",
-      location: "Community Center, Mumbai",
-      likes: 89,
-      downloads: 45
+      title: "Healthcare Initiatives",
+      image: "https://shrishankaracharya.org/wp-content/uploads/2024/05/Sanitary-pad-distribution-2.jpeg",
+      color: "#10B981",
+      description: "Medical camps and awareness in underserved communities.",
+      duration: "Ongoing"
     },
     {
       id: 4,
-      url: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=500&h=400&fit=crop",
-      category: "environment",
-      title: "Tree Plantation Drive",
-      description: "Volunteers planting 1000+ saplings in urban areas",
-      date: "2024-01-22",
-      location: "Green Belt, Delhi",
-      likes: 112,
-      downloads: 67
+      title: "Child Protection",
+      image: "https://shrishankaracharya.org/wp-content/uploads/2024/05/children_in_slums.jpg",
+      color: "#EF4444",
+      description: "Safe environments and rehabilitation for vulnerable children.",
+      duration: "7 Years"
     },
     {
       id: 5,
-      url: "https://images.unsplash.com/photo-1577896851231-70ef18881754?w=500&h=400&fit=crop",
-      category: "healthcare",
-      title: "Medical Awareness Session",
-      description: "Healthcare professionals educating villagers about hygiene",
-      date: "2024-03-08",
-      location: "Rural Clinic, Rajasthan",
-      likes: 56,
-      downloads: 28
-    },
-    {
-      id: 6,
-      url: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=500&h=400&fit=crop",
-      category: "education",
-      title: "Library Inauguration",
-      description: "New community library opening for underprivileged children",
-      date: "2024-02-14",
-      location: "Slum Area, Kolkata",
-      likes: 78,
-      downloads: 39
-    },
-    {
-      id: 7,
-      url: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=500&h=400&fit=crop",
-      category: "events",
-      title: "Annual Cultural Festival",
-      description: "Celebrating diversity with traditional performances",
-      date: "2024-01-30",
-      location: "Community Ground, Chennai",
-      likes: 134,
-      downloads: 78
-    },
-    {
-      id: 8,
-      url: "https://images.unsplash.com/photo-1541336032412-2048a678540d?w=500&h=400&fit=crop",
-      category: "community",
-      title: "Elderly Care Program",
-      description: "Weekly activities and healthcare for senior citizens",
-      date: "2024-03-05",
-      location: "Senior Home, Bangalore",
-      likes: 91,
-      downloads: 42
-    },
-    {
-      id: 9,
-      url: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=500&h=400&fit=crop",
-      category: "environment",
-      title: "Clean Water Initiative",
-      description: "Installing water purification systems in villages",
-      date: "2024-02-20",
-      location: "Tribal Village, Odisha",
-      likes: 67,
-      downloads: 31
+      title: "Disaster Relief",
+      image: "https://shrishankaracharya.org/wp-content/uploads/2024/05/India-Covid-19.jpg",
+      color: "#F59E0B",
+      description: "Emergency response and rehab support during crises.",
+      duration: "Emergency Response"
     }
   ];
 
-  const filteredImages = images.filter(image => {
-    const matchesCategory = activeFilter === 'all' || image.category === activeFilter;
-    const matchesSearch = image.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         image.description.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
-
-  const nextImage = () => {
-    const currentIndex = images.findIndex(img => img.id === selectedImage.id);
-    const nextIndex = (currentIndex + 1) % images.length;
-    setSelectedImage(images[nextIndex]);
-  };
-
-  const prevImage = () => {
-    const currentIndex = images.findIndex(img => img.id === selectedImage.id);
-    const prevIndex = (currentIndex - 1 + images.length) % images.length;
-    setSelectedImage(images[prevIndex]);
+  const addToRefs = (el) => {
+    if (el && !cardRefs.current.includes(el)) {
+      cardRefs.current.push(el);
+    }
   };
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/20 py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <div className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-full text-sm font-semibold mb-6 shadow-lg">
-            <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-            Impact Gallery
-          </div>
-          
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-            Moments of <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Impact</span>
-          </h1>
-          
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Explore the visual journey of our work - from community events to life-changing initiatives. 
-            Each photo tells a story of hope, transformation, and collective effort.
-          </p>
-        </motion.div>
-
-
-        {/* Results Count */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="mb-8"
-        >
-          <p className="text-gray-600">
-            Showing {filteredImages.length} of {images.length} photos
-          </p>
-        </motion.div>
-
-        {/* Gallery Grid */}
-        <motion.div
-          layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          <AnimatePresence>
-            {filteredImages.map((image, index) => (
-              <motion.div
-                key={image.id}
-                layout
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group relative bg-white rounded-2xl  transition-all duration-500 overflow-hidden cursor-pointer"
-                onClick={() => setSelectedImage(image)}
-              >
-                {/* Image */}
-                <div className="relative h-64 overflow-hidden">
-                  <img
-                    src={image.url}
-                    alt={image.title}
-                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
-                  />
-                  
-                  {/* Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                    <h3 className="text-white font-bold text-lg mb-2">{image.title}</h3>
-                    <p className="text-white/90 text-sm line-clamp-2">{image.description}</p>
-                  </div>
-
-                  {/* Quick Actions */}
-                  <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="flex gap-2">
-                      <button className="p-2 bg-white/90 rounded-lg hover:bg-white transition-colors">
-                        <ZoomIn className="w-4 h-4 text-gray-700" />
-                      </button>
-                      <button className="p-2 bg-white/90 rounded-lg hover:bg-white transition-colors">
-                        <Heart className="w-4 h-4 text-gray-700" />
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Category Badge */}
-                  <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full text-xs font-semibold text-gray-700">
-                      {image.category}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-bold text-gray-900 line-clamp-1">{image.title}</h3>
-                    <div className="flex items-center gap-1 text-sm text-gray-500">
-                      <Heart className="w-4 h-4 text-red-500" />
-                      <span>{image.likes}</span>
-                    </div>
-                  </div>
-                  
-                  <p className="text-gray-600 text-sm line-clamp-2 mb-3">{image.description}</p>
-                  
-                  <div className="flex items-center justify-between text-xs text-gray-500">
-                    <div className="flex items-center gap-1">
-                      <Calendar className="w-3 h-3" />
-                      <span>{new Date(image.date).toLocaleDateString()}</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <MapPin className="w-3 h-3" />
-                      <span className="line-clamp-1">{image.location}</span>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
-
-        {/* Empty State */}
-        {filteredImages.length === 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center py-16"
-          >
-            <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Search className="w-10 h-10 text-gray-400" />
-            </div>
-            <h3 className="text-2xl font-bold text-gray-700 mb-2">No photos found</h3>
-            <p className="text-gray-600 max-w-md mx-auto">
-              Try adjusting your search or filter criteria to find what you're looking for.
-            </p>
-          </motion.div>
-        )}
-
-        {/* Load More */}
-        {filteredImages.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mt-12"
-          >
-            <button className="px-8 py-4 bg-white border border-gray-200 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-all duration-300 hover:scale-105 shadow-lg">
-              Load More Photos
-            </button>
-          </motion.div>
-        )}
+    <section
+      ref={sectionRef}
+      className="min-h-screen py-24 px-4 bg-gradient-to-br from-slate-50 via-blue-50/20 to-purple-50/10 font-sans"
+    >
+      {/* Header */}
+      <div ref={headerRef} className="text-center mb-20">
+        <div className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-full text-sm font-semibold mb-6 shadow-lg">
+          <div className="w-2 h-2 bg-white/80 rounded-full animate-pulse"></div>
+          Our Impact Areas
+        </div>
+        <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 bg-clip-text text-transparent font-serif">
+          Community Impact
+        </h2>
+        <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          Transforming lives through programs that build stronger, more resilient communities.
+        </p>
       </div>
 
-      {/* Image Modal */}
-      <AnimatePresence>
-        {selectedImage && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
-            onClick={() => setSelectedImage(null)}
-          >
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              className="bg-white rounded-2xl max-w-6xl w-full max-h-[90vh] overflow-hidden relative"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Close Button */}
-              <button
-                onClick={() => setSelectedImage(null)}
-                className="absolute top-4 right-4 z-10 p-2 bg-white/90 backdrop-blur-sm rounded-lg hover:bg-white transition-colors"
-              >
-                <X className="w-6 h-6 text-gray-700" />
-              </button>
+      {/* Grid Layout 30% - 70% */}
+      <div className="grid grid-cols-1 lg:grid-cols-[30%_70%] gap-6 max-w-7xl mx-auto">
+        {/* Left Side: Featured Large Image */}
+        <div className="hidden lg:block">
+          <div className="relative w-full h-full min-h-[32rem] overflow-hidden rounded-3xl shadow-lg">
+            <img
+              src={impactAreas.find(a => a.id === featuredId).image}
+              alt="Featured Impact"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent p-6 text-white flex items-end">
+              <div>
+                <h3 className="text-3xl font-bold mb-2">
+                  {impactAreas.find(a => a.id === featuredId).title}
+                </h3>
+                <p className="text-sm text-white/90">
+                  {impactAreas.find(a => a.id === featuredId).description}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
 
-              {/* Navigation Buttons */}
-              <button
-                onClick={prevImage}
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 p-3 bg-white/90 backdrop-blur-sm rounded-lg hover:bg-white transition-colors"
+        {/* Right Side: 4 Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {impactAreas
+            .filter(area => area.id !== featuredId)
+            .map((area, index) => (
+              <div
+                key={area.id}
+                ref={addToRefs}
+                data-color={area.color}
+                className="group relative overflow-hidden rounded-3xl cursor-pointer transform perspective-1000 transition-shadow duration-500 h-80"
               >
-                <ChevronLeft className="w-6 h-6 text-gray-700" />
-              </button>
-              
-              <button
-                onClick={nextImage}
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 p-3 bg-white/90 backdrop-blur-sm rounded-lg hover:bg-white transition-colors"
-              >
-                <ChevronRight className="w-6 h-6 text-gray-700" />
-              </button>
-
-              <div className="grid grid-cols-1 lg:grid-cols-2 h-full">
-                {/* Image */}
-                <div className="relative h-96 lg:h-full">
+                <div className="relative w-full h-full overflow-hidden rounded-3xl">
                   <img
-                    src={selectedImage.url}
-                    alt={selectedImage.title}
-                    className="w-full h-full object-cover"
+                    src={area.image}
+                    alt={area.title}
+                    className="w-full h-full object-cover transform transition-transform duration-700"
                   />
-                  
-                  {/* Image Actions */}
-                  <div className="absolute bottom-4 left-4 flex gap-2">
-                    <button className="p-3 bg-white/90 backdrop-blur-sm rounded-xl hover:bg-white transition-colors">
-                      <Download className="w-5 h-5 text-gray-700" />
-                    </button>
-                    <button className="p-3 bg-white/90 backdrop-blur-sm rounded-xl hover:bg-white transition-colors">
-                      <Share className="w-5 h-5 text-gray-700" />
-                    </button>
-                    <button className="p-3 bg-white/90 backdrop-blur-sm rounded-xl hover:bg-white transition-colors">
-                      <Heart className="w-5 h-5 text-gray-700" />
-                    </button>
-                  </div>
+                  <div
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    style={{ background: `linear-gradient(45deg, ${area.color}30, transparent)` }}
+                  />
+                  <div
+                    className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-500"
+                    style={{ backgroundColor: area.color }}
+                  />
                 </div>
-
-                {/* Details */}
-                <div className="p-8 overflow-y-auto">
-                  <div className="mb-6">
-                    <span className="inline-block px-4 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold mb-4">
-                      {selectedImage.category}
-                    </span>
-                    <h2 className="text-3xl font-bold text-gray-900 mb-4">{selectedImage.title}</h2>
-                    <p className="text-gray-700 text-lg leading-relaxed">{selectedImage.description}</p>
+                <div className="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-black/80 via-black/30 to-transparent">
+                  <div
+                    className="card-number absolute top-6 right-6 w-12 h-12 rounded-2xl flex items-center justify-center text-white font-bold text-lg border-2 border-white/20 transition-all duration-300 shadow-lg"
+                    style={{ backgroundColor: `${area.color}CC` }}
+                  >
+                    0{area.id}
                   </div>
-
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-3">
-                      <Calendar className="w-5 h-5 text-gray-500" />
-                      <div>
-                        <p className="text-sm text-gray-600">Date</p>
-                        <p className="font-semibold text-gray-900">
-                          {new Date(selectedImage.date).toLocaleDateString('en-US', {
-                            weekday: 'long',
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric'
-                          })}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-3">
-                      <MapPin className="w-5 h-5 text-gray-500" />
-                      <div>
-                        <p className="text-sm text-gray-600">Location</p>
-                        <p className="font-semibold text-gray-900">{selectedImage.location}</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-6 pt-4 border-t border-gray-200">
-                      <div className="flex items-center gap-2">
-                        <Heart className="w-5 h-5 text-red-500" />
-                        <span className="font-semibold text-gray-900">{selectedImage.likes} likes</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Download className="w-5 h-5 text-blue-500" />
-                        <span className="font-semibold text-gray-900">{selectedImage.downloads} downloads</span>
-                      </div>
+                  <div className="card-content transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                    <h3 className="text-2xl font-bold text-white mb-2 font-serif">{area.title}</h3>
+                    <p className="text-white/90 text-sm leading-relaxed opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-100">
+                      {area.description}
+                    </p>
+                    <div
+                      className="mt-4 inline-block px-4 py-2 rounded-full text-white text-xs font-semibold border border-white/30"
+                      style={{
+                        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                        backdropFilter: 'blur(10px)'
+                      }}
+                    >
+                      {area.duration}
                     </div>
                   </div>
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            ))}
+        </div>
+      </div>
+
+      {/* CTA */}
+      <div ref={ctaRef} className="text-center mt-16">
+        <button className="group inline-flex items-center gap-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-10 py-5 rounded-2xl font-semibold text-lg transition-all duration-500 hover:scale-105 hover:gap-6">
+          <span>Join Our Mission</span>
+          <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </button>
+        <p className="text-gray-600 mt-4 text-sm">
+          Become part of our journey to create lasting change in communities.
+        </p>
+      </div>
+
+      {/* Floating animation keyframes */}
+      <style jsx global>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
+        }
+        .perspective-1000 {
+          perspective: 1000px;
+        }
+      `}</style>
     </section>
   );
 };
 
-export default Gallery;
+export default CommunityImpact;

@@ -34,6 +34,21 @@ const Navbar = () => {
     setIsMenuOpen(false);
   };
 
+  // Handle PDF download
+  const handlePdfDownload = () => {
+    closeMenu();
+    // You can either open in new tab or trigger download
+    window.open('/doc/certificate.pdf', '_blank');
+    
+    // Alternative: trigger download
+    // const link = document.createElement('a');
+    // link.href = '/docs/12A CERTIFICATE_merged.pdf';
+    // link.download = '12A-Certificate.pdf';
+    // document.body.appendChild(link);
+    // link.click();
+    // document.body.removeChild(link);
+  };
+
   // Animation variants
   const navVariants = {
     hidden: { y: -100, opacity: 0 },
@@ -96,14 +111,13 @@ const Navbar = () => {
   const navItems = [
     { path: "/", label: "Home", id: "home" },
     { path: "/about", label: "About", id: "about" },
-    { path: "/programs", label: "Programs", id: "programs" },
-    { path: "/events", label: "Events", id: "events" },
+    { path: "/services", label: "Services", id: "services" },
     { path: "/contact", label: "Contact", id: "contact" }
   ];
 
   return (
     <motion.header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 h-20 ${
         isScrolled 
           ? "bg-white/90 backdrop-blur-2xl shadow-2xl shadow-gray-200/50 border-b border-gray-100" 
           : "bg-white/80 backdrop-blur-xl shadow-sm"
@@ -112,7 +126,7 @@ const Navbar = () => {
       animate="visible"
       variants={navVariants}
     >
-      <div className="container mx-auto flex items-center justify-between px-4 py-3 lg:px-8 lg:py-4">
+      <div className="container mx-auto flex items-center justify-between px-4 py-3 lg:px-8 lg:py-4 h-full">
         {/* Logo */}
         <motion.div
           className="flex items-center"
@@ -126,7 +140,7 @@ const Navbar = () => {
           >
             <div className="relative">
               <motion.img 
-                className="w-12 h-12 lg:w-14 lg:h-14  "
+                className="w-12 h-12 lg:w-14 lg:h-14"
                 src="https://shrishankaracharya.org/wp-content/uploads/2024/06/Shri-Shankaracharya-Swaroopanand-Foundation-150x150.png"
                 alt="Foundation Logo"
                 whileHover={{ rotate: 5 }}
@@ -204,12 +218,19 @@ const Navbar = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.6, type: "spring", stiffness: 200 }}
         >
-          <Link
-            to="/volunteer"
-            className="px-5 py-2.5 font-['Inter'] font-medium text-gray-700 hover:text-orange-600 transition-colors duration-300 rounded-2xl hover:bg-gray-50/80"
+          {/* PDF Download Button */}
+          <motion.button
+            onClick={handlePdfDownload}
+            className="px-5 py-2.5 font-['Inter'] font-medium text-gray-700 hover:text-orange-600 transition-colors duration-300 rounded-2xl hover:bg-gray-50/80 flex items-center space-x-2"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            Volunteer
-          </Link>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            <span>Download</span>
+          </motion.button>
+
           <Link
             to="/donate"
             className="relative px-6 py-2.5 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-2xl shadow-lg shadow-orange-200 hover:shadow-orange-300 transition-all duration-300 transform hover:scale-105 font-['Inter'] font-semibold overflow-hidden group"
@@ -217,28 +238,23 @@ const Navbar = () => {
             <motion.div
               className="absolute inset-0 bg-gradient-to-r from-orange-600 to-orange-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
             />
-            <span className="relative z-10 flex items-center space-x-2">
-              <motion.span
-                whileHover={{ scale: 1.1 }}
-                transition={{ type: "spring", stiffness: 400 }}
-              >
-              
-              </motion.span>
-              <span>Donate Now</span>
-            </span>
+            <span className="relative z-10">Donate Now</span>
           </Link>
         </motion.div>
 
         {/* Mobile Menu Button */}
         <div className="flex lg:hidden items-center space-x-2">
-          <motion.div whileTap={{ scale: 0.95 }}>
-            <Link
-              to="/donate"
-              className="px-4 py-2 bg-orange-500 text-white rounded-xl text-sm font-['Inter'] font-medium shadow-lg shadow-orange-200"
-            >
-              Donate
-            </Link>
-          </motion.div>
+          {/* Mobile PDF Download Button */}
+          <motion.button
+            onClick={handlePdfDownload}
+            className="p-2 text-gray-600 hover:text-orange-600 transition-colors"
+            whileTap={{ scale: 0.95 }}
+            aria-label="Download 12A Certificate"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+          </motion.button>
           
           <motion.button
             onClick={toggleMenu}
@@ -323,13 +339,18 @@ const Navbar = () => {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}
               >
-                <Link
-                  to="/volunteer"
-                  className="py-3 px-6 text-center font-['Inter'] font-medium text-gray-700 hover:text-orange-600 transition-colors duration-300 rounded-2xl hover:bg-gray-50/80"
-                  onClick={closeMenu}
+                {/* Mobile PDF Download Button */}
+                <motion.button
+                  onClick={handlePdfDownload}
+                  className="py-3 px-6 text-center font-['Inter'] font-medium text-gray-700 hover:text-orange-600 transition-colors duration-300 rounded-2xl hover:bg-gray-50/80 flex items-center justify-center space-x-2"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                 >
-                  Join as Volunteer
-                </Link>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  <span>Download </span>
+                </motion.button>
               </motion.div>
             </nav>
           </motion.div>

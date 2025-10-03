@@ -23,7 +23,7 @@ const Footer = () => {
   const quickLinks = [
     { name: 'About Us', href: '/about' },
     { name: 'Our Programs', href: '/programs' },
-    { name: 'Success Stories', href: '/success-stories' },
+    { name: 'Our Story', href: '/our-story' },
     { name: 'Get Involved', href: '/get-involved' },
     { name: 'Events & Campaigns', href: '/events' },
     { name: 'Gallery', href: '/gallery' },
@@ -31,7 +31,7 @@ const Footer = () => {
 
   const programs = [
     { name: 'Education Initiative', href: '/programs/education' },
-    { name: 'Healthcare Access', href: '/programs/healthcare' },
+    { name: 'Healthcare Programs', href: '/programs/healthcare' },
     { name: 'Women Empowerment', href: '/programs/women-empowerment' },
     { name: 'Environmental Conservation', href: '/programs/environment' },
     { name: 'Disaster Relief', href: '/programs/disaster-relief' },
@@ -75,16 +75,34 @@ const Footer = () => {
                 <Heart className="w-6 h-6 text-white" fill="currentColor" />
               </div>
               <div>
-                <h3 className="text-2xl font-bold">Hope Foundation</h3>
-                <p className="text-blue-200 text-sm">Transforming Lives Since 2005</p>
+                <h3 className="text-xl font-bold">Shri Shankarcharya<br />Swaroopanand Foundation</h3>
+                <p className="text-blue-200 text-sm">Transforming Lives Since 2009</p>
               </div>
             </div>
             
             <p className="text-gray-300 leading-relaxed mb-6">
-              We are dedicated to creating sustainable change in underprivileged communities 
-              through education, healthcare, and empowerment initiatives.
+              A dynamic non-profit organization dedicated to addressing pressing social, economic, 
+              and environmental challenges through sustainable solutions and community empowerment.
             </p>
             
+            {/* Contact Info */}
+            <div className="space-y-3 mb-6">
+              <div className="flex items-center gap-3 text-gray-300">
+                <MapPin className="w-4 h-4 text-purple-400" />
+                <span className="text-sm">Old Dhamtari road, Sejbahar, Raipur – 492015, Chhattisgarh</span>
+              </div>
+              
+              <div className="flex items-center gap-3 text-gray-300">
+                <Phone className="w-4 h-4 text-green-400" />
+                <span className="text-sm">+91 9993561514, +91 8763695269</span>
+              </div>
+              
+              <div className="flex items-center gap-3 text-gray-300">
+                <Mail className="w-4 h-4 text-blue-400" />
+                <span className="text-sm">info@shrishankaracharya.org</span>
+              </div>
+            </div>
+
             {/* Newsletter Subscription */}
             <div className="mb-6">
               <h4 className="font-semibold mb-3 text-white">Stay Updated</h4>
@@ -92,7 +110,7 @@ const Footer = () => {
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  className="flex-1 px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-400"
+                  className="flex-1 px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-400 text-sm"
                 />
                 <button className="px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-300 flex items-center gap-2">
                   <Send className="w-4 h-4" />
@@ -100,13 +118,17 @@ const Footer = () => {
               </div>
             </div>
 
-            {/* Certifications */}
-            <div className="space-y-3">
-              {certifications.map((cert, index) => (
-                <div key={index} className="flex items-center gap-2 text-sm text-gray-300">
-                  <cert.icon className="w-4 h-4 text-green-400" />
-                  <span>{cert.name}</span>
-                </div>
+            {/* Social Links */}
+            <div className="flex gap-3">
+              {socialLinks.map((social, index) => (
+                <a
+                  key={index}
+                  href={social.href}
+                  className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-600 transition-all duration-300 group"
+                  aria-label={social.name}
+                >
+                  <social.icon className="w-5 h-5 text-gray-400 group-hover:text-white transition-colors" />
+                </a>
               ))}
             </div>
           </div>
@@ -149,68 +171,71 @@ const Footer = () => {
                 </li>
               ))}
             </ul>
+
+            {/* Certifications */}
+            <div className="mt-8 pt-6 border-t border-gray-700">
+              <h5 className="font-semibold mb-3 text-white">Certifications</h5>
+              <div className="space-y-2">
+                {certifications.map((cert, index) => (
+                  <div key={index} className="flex items-center gap-2 text-sm text-gray-300">
+                    <cert.icon className="w-4 h-4 text-green-400" />
+                    <span>{cert.name}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
 
-          {/* Contact & Get Involved */}
+          {/* Get Involved */}
           <div>
             <h4 className="text-lg font-semibold mb-6 text-white border-l-4 border-purple-500 pl-3">
-              Get In Touch
+              Get Involved
             </h4>
             
-            {/* Contact Info */}
-            <div className="space-y-4 mb-6">
-              <div className="flex items-center gap-3 text-gray-300">
-                <MapPin className="w-5 h-5 text-purple-400" />
+            <ul className="space-y-3 mb-6">
+              {getInvolved.map((item, index) => (
+                <li key={index}>
+                  <a
+                    href={item.href}
+                    className="text-gray-300 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
+                  >
+                    <ArrowRight className="w-3 h-3 text-purple-400 group-hover:translate-x-1 transition-transform" />
+                    {item.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+
+            {/* Impact Stats */}
+            <div className="bg-gray-800 rounded-xl p-4 border border-gray-700">
+              <h5 className="font-semibold mb-3 text-white text-center">Our Impact</h5>
+              <div className="grid grid-cols-2 gap-3 text-center">
                 <div>
-                  <p className="text-sm">123 Social Street,</p>
-                  <p className="text-sm">Mumbai, Maharashtra 400001</p>
+                  <div className="text-2xl font-bold text-blue-400">50K+</div>
+                  <div className="text-xs text-gray-400">Students</div>
+                </div>
+                <div>
+                  <div className="text-2xl font-bold text-green-400">100K+</div>
+                  <div className="text-xs text-gray-400">Lives Impacted</div>
+                </div>
+                <div>
+                  <div className="text-2xl font-bold text-purple-400">15+</div>
+                  <div className="text-xs text-gray-400">Years</div>
+                </div>
+                <div>
+                  <div className="text-2xl font-bold text-yellow-400">25+</div>
+                  <div className="text-xs text-gray-400">Communities</div>
                 </div>
               </div>
-              
-              <div className="flex items-center gap-3 text-gray-300">
-                <Phone className="w-5 h-5 text-green-400" />
-                <span className="text-sm">+91 98765 43210</span>
-              </div>
-              
-              <div className="flex items-center gap-3 text-gray-300">
-                <Mail className="w-5 h-5 text-blue-400" />
-                <span className="text-sm">contact@hopefoundation.org</span>
-              </div>
             </div>
 
-            {/* Get Involved Links */}
-            <div className="mb-6">
-              <h5 className="font-semibold mb-3 text-white">Get Involved</h5>
-              <ul className="space-y-2">
-                {getInvolved.slice(0, 3).map((item, index) => (
-                  <li key={index}>
-                    <a
-                      href={item.href}
-                      className="text-gray-300 hover:text-white transition-colors duration-300 text-sm flex items-center gap-2 group"
-                    >
-                      <ArrowRight className="w-3 h-3 text-yellow-400 group-hover:translate-x-1 transition-transform" />
-                      {item.name}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Social Links */}
-            <div>
-              <h5 className="font-semibold mb-3 text-white">Follow Us</h5>
-              <div className="flex gap-3">
-                {socialLinks.map((social, index) => (
-                  <a
-                    key={index}
-                    href={social.href}
-                    className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-600 transition-all duration-300 group"
-                    aria-label={social.name}
-                  >
-                    <social.icon className="w-5 h-5 text-gray-400 group-hover:text-white transition-colors" />
-                  </a>
-                ))}
+            {/* Emergency Contact */}
+            <div className="mt-4 p-3 bg-red-900/20 border border-red-800 rounded-lg">
+              <div className="flex items-center gap-2 text-sm">
+                <Phone className="w-4 h-4 text-red-400" />
+                <span className="text-red-300 font-semibold">Emergency Helpline</span>
               </div>
+              <div className="text-red-200 text-sm mt-1">Available 24/7 for urgent support</div>
             </div>
           </div>
         </div>
@@ -223,35 +248,22 @@ const Footer = () => {
             {/* Copyright */}
             <div className="text-gray-400 text-sm text-center md:text-left">
               <p>
-                © {currentYear} Hope Foundation. All rights reserved. | 
-                <span className="text-blue-300"> Making a difference since 2005</span>
+                © {currentYear} Shri Shankarcharya Swaroopanand Foundation. All rights reserved. | 
+                <span className="text-blue-300"> Registered Non-Profit Organization</span>
               </p>
             </div>
 
             {/* Legal Links */}
-            <div className="flex flex-wrap gap-6 text-sm text-gray-400">
-              <a href="/privacy-policy" className="hover:text-white transition-colors">
-                Privacy Policy
-              </a>
-              <a href="/terms-of-service" className="hover:text-white transition-colors">
-                Terms of Service
-              </a>
-              <a href="/disclaimer" className="hover:text-white transition-colors">
-                Disclaimer
-              </a>
-              <a href="/sitemap" className="hover:text-white transition-colors">
-                Sitemap
-              </a>
-            </div>
+            <div className="text-sm text-gray-400 text-center">
+  Designed & Developed by <span className="text-white font-semibold">KSS</span>
+</div>
 
-            {/* Trust Badges */}
+
+            {/* Made with Love */}
             
           </div>
         </div>
       </div>
-
-    
-     
     </footer>
   );
 };

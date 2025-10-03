@@ -177,15 +177,15 @@ const Faqs = () => {
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <Mail className="w-5 h-5 text-blue-200" />
-                  <span className="text-blue-100">contact@ngohope.org</span>
+                  <span className="text-blue-100">info@shrishankaracharya.org</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Phone className="w-5 h-5 text-blue-200" />
-                  <span className="text-blue-100">+91 98765 43210</span>
+                  <span className="text-blue-100">+91 8763695269</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <MapPin className="w-5 h-5 text-blue-200" />
-                  <span className="text-blue-100">Mumbai, Maharashtra</span>
+                  <span className="text-blue-100">Raipur , Chhattisgarh</span>
                 </div>
               </div>
               
