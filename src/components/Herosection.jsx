@@ -27,7 +27,6 @@ const slides = [
     readTime: "3 min read",
     badge: "15K+ Women"
   },
-
   {
     title: "Education for Underprivileged Children",
     description: "Quality education programs, digital learning initiatives, and scholarship opportunities creating brighter futures for thousands of children.",
@@ -87,7 +86,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="relative mt-20 w-full md:h-[600px] h-[420px] overflow-hidden bg-gray-900">
+    <section className="relative mt-20 w-full md:h-[700px] h-[500px] overflow-hidden bg-gray-900">
       <Swiper
         modules={[Navigation, Autoplay, Pagination, EffectFade]}
         navigation={{
@@ -126,20 +125,20 @@ const HeroSection = () => {
                   variants={fadeImgVariants}
                 />
                 
-                {/* Multi-layer Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-r from-gray-900/95 via-gray-900/70 to-gray-900/40" />
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent" />
-                <div className="absolute inset-0 bg-gradient-to-b from-gray-900/30 via-transparent to-gray-900/30" />
+                {/* Enhanced Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-r from-gray-900/95 via-gray-900/80 to-gray-900/50" />
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-b from-gray-900/40 via-transparent to-gray-900/60" />
                 
                 {/* Animated Light Effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-transparent to-purple-500/5 animate-pulse" />
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 via-purple-600/5 to-emerald-600/10 animate-pulse" />
               </div>
 
               {/* Content Container */}
               <div className="relative z-10 h-full flex items-center">
-                <div className="px-6 lg:px-12">
+                <div className="px-6 lg:px-16 xl:px-24">
                   <motion.div
-                    className="max-w-2xl"
+                    className="max-w-2xl lg:max-w-3xl"
                     initial="hidden"
                     animate={activeIndex === index ? "visible" : "hidden"}
                     variants={textContainerVariants}
@@ -147,10 +146,10 @@ const HeroSection = () => {
                     {/* Badge */}
                     <motion.div
                       variants={textItemVariants}
-                      className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 mb-6"
+                      className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600/20 to-purple-600/20 backdrop-blur-lg px-4 py-2.5 rounded-full border border-white/20 mb-8 shadow-lg"
                     >
-                      <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                      <span className="text-sm font-medium text-white tracking-wide">
+                      <div className="w-2 h-2 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full animate-pulse" />
+                      <span className="text-sm font-semibold text-white tracking-wider">
                         {slide.badge}
                       </span>
                     </motion.div>
@@ -158,7 +157,7 @@ const HeroSection = () => {
                     {/* Title */}
                     <motion.h1
                       variants={textItemVariants}
-                      className="text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-tight mb-6"
+                      className="text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight mb-6 tracking-tight"
                     >
                       {slide.title}
                     </motion.h1>
@@ -166,27 +165,27 @@ const HeroSection = () => {
                     {/* Description */}
                     <motion.p
                       variants={textItemVariants}
-                      className="text-lg md:text-xl text-gray-200 leading-relaxed mb-8 max-w-xl"
+                      className="text-md md:text-xl lg:text-2xl text-gray-200 leading-relaxed mb-10 max-w-2xl font-light"
                     >
                       {slide.description}
                     </motion.p>
 
                     {/* CTA Buttons */}
-                    
-                    {/* Meta Information */}
                     <motion.div
                       variants={textItemVariants}
-                      className="flex items-center gap-6 text-gray-300"
+                      className=" hidden md:flex flex-col sm:flex-row gap-4 mb-8"
                     >
-                      <div className="flex items-center gap-2">
-                        <User className="w-4 h-4" />
-                        <span className="text-sm">{slide.author}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Calendar className="w-4 h-4" />
-                        <span className="text-sm">{slide.readTime}</span>
-                      </div>
+                      <button className="group bg-white text-gray-900 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-all duration-300 hover:scale-105 hover:shadow-2xl flex items-center gap-3 w-fit">
+                        Learn More
+                        <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                      </button>
+                      <button className="group border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/10 transition-all duration-300 hover:scale-105 backdrop-blur-sm w-fit">
+                        Donate Now
+                      </button>
                     </motion.div>
+
+                    {/* Meta Information */}
+                    
                   </motion.div>
                 </div>
               </div>
@@ -195,47 +194,40 @@ const HeroSection = () => {
         ))}
 
         {/* Enhanced Controls Container */}
-        <div className="absolute bottom-8 right-8 z-20 flex items-center gap-3">
+        <div className="absolute bottom-8 right-8 z-20 flex items-center gap-4">
+          {/* Custom Pagination */}
+          <div className="hero-pagination flex items-center gap-2 bg-black/30 backdrop-blur-lg px-4 py-2 rounded-full border border-white/10" />
+
           {/* Play/Pause Button */}
-          <button 
-            onClick={toggleAutoplay}
-            className="w-12 h-12 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-110"
-          >
-            {isPlaying ? (
-              <Pause className="w-5 h-5 text-white" />
-            ) : (
-              <Play className="w-5 h-5 text-white" />
-            )}
-          </button>
+          
 
           {/* Navigation Arrows */}
-          <div className="flex items-center gap-2">
-            <button className="hero-prev-btn w-12 h-12 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-110">
-              <ChevronLeft className="w-6 h-6 text-white" />
+          <div className="flex items-center gap-3">
+            <button className="hero-prev-btn w-14 h-14 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-lg border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-110 shadow-lg hover:shadow-xl">
+              <ChevronLeft className="w-7 h-7 text-white" />
             </button>
-            <button className="hero-next-btn w-12 h-12 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-110">
-              <ChevronRight className="w-6 h-6 text-white" />
+            <button className="hero-next-btn w-14 h-14 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-lg border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-110 shadow-lg hover:shadow-xl">
+              <ChevronRight className="w-7 h-7 text-white" />
             </button>
           </div>
         </div>
 
-        {/* Custom Pagination */}
+        {/* Progress Bar */}
        
       </Swiper>
 
-      {/* Trust Badges */}
-     
       {/* Enhanced Styles */}
       <style jsx global>{`
         .hero-bullet {
-          width: 8px;
-          height: 8px;
-          background: rgba(255, 255, 255, 0.3);
-          border-radius: 4px;
+          width: 10px;
+          height: 10px;
+          background: rgba(255, 255, 255, 0.4);
+          border-radius: 6px;
           transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
           cursor: pointer;
           position: relative;
           overflow: hidden;
+          margin: 0 4px;
         }
 
         .hero-bullet::before {
@@ -254,29 +246,26 @@ const HeroSection = () => {
         }
 
         .hero-bullet-active {
-          width: 32px;
-          background: #ffffff;
-          box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+          width: 40px;
+          background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+          box-shadow: 0 0 20px rgba(139, 92, 246, 0.6);
           transform: scale(1.1);
         }
 
         .hero-pagination {
           backdrop-filter: blur(10px);
-          background: rgba(0, 0, 0, 0.2);
           padding: 8px 12px;
-          border-radius: 20px;
-          border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         /* Mobile Optimizations */
         @media (max-width: 768px) {
           .hero-bullet {
-            width: 6px;
-            height: 6px;
+            width: 8px;
+            height: 8px;
           }
           
           .hero-bullet-active {
-            width: 24px;
+            width: 30px;
           }
         }
       `}</style>

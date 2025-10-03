@@ -1,6 +1,19 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { motion } from 'framer-motion';
+import { 
+  Users, 
+  Heart, 
+  Shield, 
+  Target, 
+  ArrowRight, 
+  Sparkles,
+  TrendingUp,
+  Award,
+  Clock,
+  MapPin
+} from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -9,8 +22,9 @@ const CommunityImpact = () => {
   const cardRefs = useRef([]);
   const headerRef = useRef(null);
   const ctaRef = useRef(null);
+  const statsRef = useRef(null);
 
-  const featuredId = 2; // ID of the featured item for the left 30%
+  const featuredId = 2;
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -29,7 +43,22 @@ const CommunityImpact = () => {
           }
         });
 
-      // Animate cards (skip featured one)
+      // Stats animation
+      gsap.fromTo(statsRef.current,
+        { opacity: 0, y: 60 },
+        {
+          opacity: 1, y: 0,
+          duration: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: statsRef.current,
+            start: "top 85%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse"
+          }
+        });
+
+      // Cards animation
       cardRefs.current.forEach((card, index) => {
         gsap.fromTo(card,
           { opacity: 0, y: 100, rotationY: 15, scale: 0.8 },
@@ -121,41 +150,68 @@ const CommunityImpact = () => {
       title: "Education for All",
       image: "https://shrishankaracharya.org/wp-content/uploads/2024/05/kanha-kids-a-play-school-and-day-care-kolar-road-bhopal-schools-0dggajqcgh-2.jpg",
       color: "#3B82F6",
-      description: "Providing quality education to underprivileged children.",
-      duration: "Since 2009"
+      gradient: "from-blue-500 to-cyan-500",
+      bgGradient: "from-blue-50 to-cyan-50",
+      description: "Providing quality education to underprivileged children through innovative learning programs.",
+      duration: "Since 2009",
+      stats: "25K+ Students",
+      icon: Users
     },
     {
       id: 2,
       title: "Women Empowerment",
       image: "https://shrishankaracharya.org/wp-content/uploads/2024/05/Women-Empowerment.jpeg",
       color: "#8B5CF6",
-      description: "Skill development programs for independent women leaders.",
-      duration: "5 Years"
+      gradient: "from-purple-500 to-pink-500",
+      bgGradient: "from-purple-50 to-pink-50",
+      description: "Skill development and economic independence programs for women across communities.",
+      duration: "5 Years",
+      stats: "15K+ Women",
+      icon: Target
     },
     {
       id: 3,
       title: "Healthcare Initiatives",
       image: "https://shrishankaracharya.org/wp-content/uploads/2024/05/Sanitary-pad-distribution-2.jpeg",
       color: "#10B981",
-      description: "Medical camps and awareness in underserved communities.",
-      duration: "Ongoing"
+      gradient: "from-emerald-500 to-green-500",
+      bgGradient: "from-emerald-50 to-green-50",
+      description: "Medical camps and health awareness programs in underserved rural areas.",
+      duration: "Ongoing",
+      stats: "100K+ Lives",
+      icon: Heart
     },
     {
       id: 4,
       title: "Child Protection",
       image: "https://shrishankaracharya.org/wp-content/uploads/2024/05/children_in_slums.jpg",
       color: "#EF4444",
-      description: "Safe environments and rehabilitation for vulnerable children.",
-      duration: "7 Years"
+      gradient: "from-rose-500 to-red-500",
+      bgGradient: "from-rose-50 to-red-50",
+      description: "Safe environments and rehabilitation programs for vulnerable children.",
+      duration: "7 Years",
+      stats: "10K+ Children",
+      icon: Shield
     },
     {
       id: 5,
       title: "Disaster Relief",
       image: "https://shrishankaracharya.org/wp-content/uploads/2024/05/India-Covid-19.jpg",
       color: "#F59E0B",
-      description: "Emergency response and rehab support during crises.",
-      duration: "Emergency Response"
+      gradient: "from-amber-500 to-orange-500",
+      bgGradient: "from-amber-50 to-orange-50",
+      description: "Emergency response and rehabilitation support during natural disasters.",
+      duration: "Emergency",
+      stats: "50+ Campaigns",
+      icon: Award
     }
+  ];
+
+  const impactStats = [
+    { number: "50,000+", label: "Lives Transformed", icon: Users, color: "blue" },
+    { number: "15+", label: "Years of Service", icon: Clock, color: "purple" },
+    { number: "25+", label: "Active Communities", icon: MapPin, color: "green" },
+    { number: "95%", label: "Success Rate", icon: TrendingUp, color: "orange" }
   ];
 
   const addToRefs = (el) => {
@@ -167,121 +223,172 @@ const CommunityImpact = () => {
   return (
     <section
       ref={sectionRef}
-      className="min-h-screen py-24 px-4 bg-gradient-to-br from-slate-50 via-blue-50/20 to-purple-50/10 font-sans"
+      className="min-h-screen py-20 px-4 bg-gradient-to-br from-slate-50 via-white to-blue-50/20 relative overflow-hidden"
     >
-      {/* Header */}
-      <div ref={headerRef} className="text-center mb-20">
-        <div className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-full text-sm font-semibold mb-6 shadow-lg">
-          <div className="w-2 h-2 bg-white/80 rounded-full animate-pulse"></div>
-          Our Impact Areas
-        </div>
-        <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 bg-clip-text text-transparent font-serif">
-          Community Impact
-        </h2>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-          Transforming lives through programs that build stronger, more resilient communities.
-        </p>
-      </div>
+      {/* Background Elements */}
+      <div className="absolute top-0 left-0 w-72 h-72 bg-blue-200/20 rounded-full -translate-x-1/2 -translate-y-1/2 blur-3xl"></div>
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-200/20 rounded-full translate-x-1/3 translate-y-1/3 blur-3xl"></div>
+      
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Header */}
+        <div ref={headerRef} className="text-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+            className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-2xl text-sm font-semibold mb-6 shadow-lg shadow-blue-500/25"
+          >
+            <Sparkles className="w-4 h-4" />
+            Moments of Impact
+            <div className="w-2 h-2 bg-white/80 rounded-full animate-pulse"></div>
+          </motion.div>
+          
+          <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
+            Our Gallery
+          </h2>
+          
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed font-light">
+          Explore moments of impact from our journey across India — from community events to rural development projects. Each image reflects our mission to empower communities and create lasting change.
 
-      {/* Grid Layout 30% - 70% */}
-      <div className="grid grid-cols-1 lg:grid-cols-[30%_70%] gap-6 max-w-7xl mx-auto">
-        {/* Left Side: Featured Large Image */}
-        <div className="hidden lg:block">
-          <div className="relative w-full h-full min-h-[32rem] overflow-hidden rounded-3xl shadow-lg">
-            <img
-              src={impactAreas.find(a => a.id === featuredId).image}
-              alt="Featured Impact"
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent p-6 text-white flex items-end">
-              <div>
-                <h3 className="text-3xl font-bold mb-2">
-                  {impactAreas.find(a => a.id === featuredId).title}
-                </h3>
-                <p className="text-sm text-white/90">
-                  {impactAreas.find(a => a.id === featuredId).description}
-                </p>
-              </div>
-            </div>
-          </div>
+          </p>
         </div>
 
-        {/* Right Side: 4 Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {impactAreas
-            .filter(area => area.id !== featuredId)
-            .map((area, index) => (
-              <div
-                key={area.id}
-                ref={addToRefs}
-                data-color={area.color}
-                className="group relative overflow-hidden rounded-3xl cursor-pointer transform perspective-1000 transition-shadow duration-500 h-80"
-              >
-                <div className="relative w-full h-full overflow-hidden rounded-3xl">
-                  <img
-                    src={area.image}
-                    alt={area.title}
-                    className="w-full h-full object-cover transform transition-transform duration-700"
-                  />
-                  <div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    style={{ background: `linear-gradient(45deg, ${area.color}30, transparent)` }}
-                  />
-                  <div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-500"
-                    style={{ backgroundColor: area.color }}
-                  />
-                </div>
-                <div className="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-black/80 via-black/30 to-transparent">
-                  <div
-                    className="card-number absolute top-6 right-6 w-12 h-12 rounded-2xl flex items-center justify-center text-white font-bold text-lg border-2 border-white/20 transition-all duration-300 shadow-lg"
-                    style={{ backgroundColor: `${area.color}CC` }}
-                  >
-                    0{area.id}
+       
+        {/* Grid Layout 30% - 70% */}
+        <div className="grid grid-cols-1 lg:grid-cols-[35%_65%] gap-8">
+          {/* Left Side: Featured Large Card */}
+          <div className="hidden lg:block">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1 }}
+              className="relative w-full h-full min-h-[32rem] overflow-hidden rounded-3xl shadow-2xl group cursor-pointer"
+            >
+              <img
+                src={impactAreas.find(a => a.id === featuredId).image}
+                alt="Featured Impact"
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+              />
+              
+              {/* Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+              
+              {/* Content */}
+              <div className="absolute inset-0 p-8 flex flex-col justify-end text-white">
+                <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                  <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium mb-4 border border-white/30">
+                    <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                    Featured Program
                   </div>
-                  <div className="card-content transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                    <h3 className="text-2xl font-bold text-white mb-2 font-serif">{area.title}</h3>
-                    <p className="text-white/90 text-sm leading-relaxed opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-100">
-                      {area.description}
-                    </p>
-                    <div
-                      className="mt-4 inline-block px-4 py-2 rounded-full text-white text-xs font-semibold border border-white/30"
-                      style={{
-                        backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                        backdropFilter: 'blur(10px)'
-                      }}
-                    >
-                      {area.duration}
+                  
+                  <h3 className="text-3xl font-bold mb-3">
+                    {impactAreas.find(a => a.id === featuredId).title}
+                  </h3>
+                  
+                  <p className="text-white/90 text-lg leading-relaxed mb-6 max-w-md">
+                    {impactAreas.find(a => a.id === featuredId).description}
+                  </p>
+
+                  <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-2 text-white/80">
+                      <Clock className="w-4 h-4" />
+                      <span className="text-sm">{impactAreas.find(a => a.id === featuredId).duration}</span>
+                    </div>
+                    <div className="w-1 h-1 bg-white/50 rounded-full"></div>
+                    <div className="text-sm font-semibold text-white">
+                      {impactAreas.find(a => a.id === featuredId).stats}
                     </div>
                   </div>
                 </div>
               </div>
-            ))}
+
+              {/* Hover Effect */}
+              <div className={`absolute inset-0 bg-gradient-to-r ${impactAreas.find(a => a.id === featuredId).gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
+            </motion.div>
+          </div>
+
+          {/* Right Side: 4 Cards Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {impactAreas
+              .filter(area => area.id !== featuredId)
+              .map((area, index) => {
+                const IconComponent = area.icon;
+                return (
+                  <div
+                    key={area.id}
+                    ref={addToRefs}
+                    data-color={area.color}
+                    className="group relative overflow-hidden rounded-2xl cursor-pointer transform perspective-1000 transition-all duration-500 h-80 bg-white border border-gray-100 shadow-sm hover:shadow-xl"
+                  >
+                    {/* Image Container */}
+                    <div className="relative w-full h-full overflow-hidden">
+                      <img
+                        src={area.image}
+                        alt={area.title}
+                        className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110"
+                      />
+                      
+                      {/* Gradient Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                      
+                      {/* Number Badge */}
+                      <div
+                        className="card-number absolute top-4 right-4 w-10 h-10 rounded-xl flex items-center justify-center text-white font-bold text-sm border-2 border-white/30 transition-all duration-300 shadow-lg backdrop-blur-sm"
+                        style={{ backgroundColor: `${area.color}CC` }}
+                      >
+                        0{area.id}
+                      </div>
+
+                      {/* Icon */}
+                      <div className={`absolute top-4 left-4 w-10 h-10 bg-gradient-to-r ${area.gradient} rounded-xl flex items-center justify-center shadow-lg`}>
+                        <IconComponent className="w-5 h-5 text-white" />
+                      </div>
+                    </div>
+
+                    {/* Content */}
+                    <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent text-white">
+                      <div className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                        <h3 className="text-xl font-bold mb-2">{area.title}</h3>
+                        
+                        <p className="text-white/90 text-sm leading-relaxed opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-100 mb-3">
+                          {area.description}
+                        </p>
+
+                        <div className="flex items-center justify-between opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-200">
+                          <span className="text-xs font-semibold bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
+                            {area.duration}
+                          </span>
+                          <span className="text-xs font-medium">{area.stats}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Hover Color Overlay */}
+                    <div className={`absolute inset-0 bg-gradient-to-r ${area.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}></div>
+                  </div>
+                );
+              })}
+          </div>
+        </div>
+
+        {/* CTA Section */}
+        <div ref={ctaRef} className="text-center mt-16">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="group inline-flex items-center gap-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-12 py-4 rounded-2xl font-semibold text-lg transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/25"
+          >
+            <span>Join Our Mission</span>
+            <ArrowRight className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" />
+          </motion.button>
+          <p className="text-gray-600 mt-4 text-sm">
+            Help us create lasting change in communities across India
+          </p>
         </div>
       </div>
 
-      {/* CTA */}
-      <div ref={ctaRef} className="text-center mt-16">
-        <button className="group inline-flex items-center gap-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-10 py-5 rounded-2xl font-semibold text-lg transition-all duration-500 hover:scale-105 hover:gap-6">
-          <span>Join Our Mission</span>
-          <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </button>
-        <p className="text-gray-600 mt-4 text-sm">
-          Become part of our journey to create lasting change in communities.
-        </p>
-      </div>
-
-      {/* Floating animation keyframes */}
+      {/* Custom Styles */}
       <style jsx global>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-20px) rotate(180deg); }
-        }
-        .animate-float {
-          animation: float 6s ease-in-out infinite;
-        }
         .perspective-1000 {
           perspective: 1000px;
         }

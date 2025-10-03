@@ -129,7 +129,7 @@ const OurStory = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 + 0.4 }}
-              className={`bg-white rounded-2xl shadow-lg overflow-hidden border ${item.borderColor} hover:shadow-xl transition-all duration-300`}
+              className={`bg-white rounded-2xl  overflow-hidden border ${item.borderColor} hover:shadow-xl transition-all duration-300`}
             >
               {/* Image Section */}
               <div className="h-48 overflow-hidden">
@@ -182,7 +182,7 @@ const OurStory = () => {
 
         {/* Focus Areas Section */}
         <motion.div 
-          className="bg-white rounded-2xl shadow-lg p-8 border border-gray-200 mb-16"
+          className="bg-white rounded-2xl  p-8 border border-gray-200 mb-16"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
@@ -221,7 +221,7 @@ const OurStory = () => {
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.8 }}
-            className="bg-gradient-to-br from-purple-600 to-purple-700 rounded-2xl p-8 text-white shadow-2xl"
+            className="bg-gradient-to-br from-orange-600 to-blue-700 rounded-2xl p-8 text-white "
           >
             <div className="flex items-center mb-6">
               <Globe className="w-8 h-8 mr-4" />
@@ -243,7 +243,7 @@ const OurStory = () => {
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.9 }}
-            className="bg-white rounded-2xl shadow-lg p-8 border border-gray-200"
+            className="bg-white rounded-2xl  p-8 border border-gray-200"
           >
             <div className="text-center mb-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">Our Values</h2>

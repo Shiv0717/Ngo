@@ -7,6 +7,7 @@ import Faqs from '../components/Faqs';
 import About from '../components/About';
 import Events from '../components/Events';
 import Gallery from '../components/Gallery';
+import VideoSection from '../components/VideoSection';
 
 const Home = () => {
   return (
@@ -16,6 +17,7 @@ const Home = () => {
       <About/>
       <ProgramsSection/>
       <Events/>
+      <VideoSection/>
       <Gallery/>
       <Faqs/>
     </div>
