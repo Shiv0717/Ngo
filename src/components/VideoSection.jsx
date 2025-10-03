@@ -69,7 +69,7 @@ const VideoSection = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-600 to-orange-700 text-white px-6 py-3 rounded-2xl text-sm font-semibold mb-6 shadow-lg shadow-orange-500/25"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 rounded-2xl text-sm font-semibold mb-6 shadow-lg shadow-blue-500/25"
           >
             <Youtube className="w-4 h-4" />
             Events & Highlights
@@ -78,7 +78,7 @@ const VideoSection = () => {
 
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
             Watch Our
-            <span className="block bg-gradient-to-r from-orange-600 to-orange-700 bg-clip-text text-transparent">
+            <span className="block bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
               Impact Stories
             </span>
           </h2>
@@ -119,7 +119,7 @@ const VideoSection = () => {
                       {events[selectedVideo].title}
                     </h3>
                   </div>
-                  <button className="flex items-center gap-2 text-orange-600 hover:text-orange-700 transition-colors">
+                  <button className="flex items-center gap-2 text-blue-600 hover:text-blue-700 transition-colors">
                     <ExternalLink className="w-4 h-4" />
                     <span className="text-sm font-medium">Open in YouTube</span>
                   </button>
@@ -132,19 +132,19 @@ const VideoSection = () => {
                 {/* Event Details */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 py-4 border-t border-gray-200">
                   <div className="flex items-center gap-2 text-gray-600">
-                    <Calendar className="w-4 h-4 text-orange-600" />
+                    <Calendar className="w-4 h-4 text-blue-600" />
                     <span className="text-sm font-medium">{events[selectedVideo].date}</span>
                   </div>
                   <div className="flex items-center gap-2 text-gray-600">
-                    <MapPin className="w-4 h-4 text-orange-600" />
+                    <MapPin className="w-4 h-4 text-blue-600" />
                     <span className="text-sm font-medium">{events[selectedVideo].location}</span>
                   </div>
                   <div className="flex items-center gap-2 text-gray-600">
-                    <Users className="w-4 h-4 text-orange-600" />
+                    <Users className="w-4 h-4 text-blue-600" />
                     <span className="text-sm font-medium">{events[selectedVideo].attendees}</span>
                   </div>
                   <div className="flex items-center gap-2 text-gray-600">
-                    <Clock className="w-4 h-4 text-orange-600" />
+                    <Clock className="w-4 h-4 text-blue-600" />
                     <span className="text-sm font-medium">{events[selectedVideo].duration}</span>
                   </div>
                 </div>
@@ -166,8 +166,8 @@ const VideoSection = () => {
                 onClick={() => setSelectedVideo(index)}
                 className={`w-full text-left bg-white rounded-2xl p-8 border-2 transition-all duration-300 hover:shadow-lg group ${
                   selectedVideo === index 
-                    ? 'border-orange-500 shadow-lg scale-[1.02]' 
-                    : 'border-gray-200 hover:border-orange-300'
+                    ? 'border-blue-500 shadow-lg scale-[1.02]' 
+                    : 'border-gray-200 hover:border-blue-300'
                 }`}
               >
                 <div className="flex gap-4">
@@ -193,7 +193,7 @@ const VideoSection = () => {
                         {event.title}
                       </h4>
                       {selectedVideo === index && (
-                        <div className="w-2 h-2 bg-orange-500 rounded-full flex-shrink-0 mt-1 ml-2"></div>
+                        <div className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0 mt-1 ml-2"></div>
                       )}
                     </div>
                     
